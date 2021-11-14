@@ -1,6 +1,6 @@
 import express, {Request, Response} from 'express';
 import bodyParser from 'body-parser';
-import {filterImageFromURL, deleteLocalFiles} from './util/util';
+import {filterImageFromURL, deleteLocalFiles, isURLValid} from './util/util';
 
 (async () => {
 
@@ -17,7 +17,7 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
   // endpoint to filter an image from a public url.
   app.get("/filteredimage", async(req: Request, res: Response) => {
     const {image_url : imageUrl} = req.query;
-    if(!imageUrl){
+    if(!isURLValid(imageUrl)){
       return res.status(421).send({ message: 'Invalid Url' });
     }
     try{

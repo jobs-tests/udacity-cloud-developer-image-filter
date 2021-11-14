@@ -1,5 +1,6 @@
 import fs from "fs";
 import Jimp = require("jimp");
+import { URL } from 'url';
 
 // filterImageFromURL
 // helper function to download, filter, and save the filtered image locally
@@ -35,5 +36,22 @@ export async function filterImageFromURL(inputURL: string): Promise<string> {
 export async function deleteLocalFiles(files: Array<string>) {
   for (let file of files) {
     fs.unlinkSync(file);
+  }
+}
+
+// isURLValid
+// helper function to determine if url is valid
+export function isURLValid(url: string):boolean {
+  try{
+    if(url){
+      const urlObj  = new URL(url);
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
+  catch(exception ){
+    return false;
   }
 }
